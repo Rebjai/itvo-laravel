@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CasillaController;
+use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\RolController;
 
 /*
@@ -21,3 +22,4 @@ Route::get('/', function () {
 
 Route::resource('casilla', CasillaController::class);
 Route::resource('rol', RolController::class);
+Route::resource('funcionario', FuncionarioController::class);
