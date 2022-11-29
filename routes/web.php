@@ -4,6 +4,7 @@ use App\Http\Controllers\CandidatoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CasillaController;
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\VotoController;
 
@@ -28,3 +29,6 @@ Route::resource('rol', RolController::class);
 Route::resource('funcionario', FuncionarioController::class);
 Route::resource('candidato', CandidatoController::class);
 Route::resource('voto', VotoController::class);
+Route::get('preview', [PDFController::class,'preview']);
+Route::get('download', [PDFController::class,'download'])->name('download');
+
