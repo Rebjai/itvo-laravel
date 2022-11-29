@@ -23,3 +23,5 @@ Route::get('/', function () {
 Route::resource('casilla', CasillaController::class);
 Route::resource('rol', RolController::class);
 Route::resource('funcionario', FuncionarioController::class);
+Route::resource('candidato', CandidatoController::class);
+Route::resource('voto', VotoController::class);

@@ -14,7 +14,8 @@ class CandidatoController extends Controller
      */
     public function index()
     {
-        //
+        $candidatos = Candidato::all();
+        return view('candidato.list',compact('candidatos'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CandidatoController extends Controller
      */
     public function create()
     {
-        //
+        return view('candidato.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class CandidatoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validateData($request);
+        $data['foto'] = $request->file('foto')->store('images',['disk'=> 'public']);
+        $data['perfil'] = $request->file('perfil')->store('pdf', ['disk'=> 'public']);
+        $candidato = Candidato::create($data);
+        return redirect('candidato')->with(
+            'success',
+            $candidato->nombrecompleto . ' guardado satisfactoriamente ...'
+        );
     }
 
     /**
@@ -57,7 +65,8 @@ class CandidatoController extends Controller
      */
     public function edit(Candidato $candidato)
     {
-        //
+        $candidatos = Candidato::all();
+        return view('candidato.edit', compact('candidatos'));
     }
 
     /**
@@ -81,5 +90,23 @@ class CandidatoController extends Controller
     public function destroy(Candidato $candidato)
     {
         //
+    }
+
+     /**
+     * Validate the request data.
+     *
+     * @param  Request  $request
+     * @return Array $valid
+     */
+    private function validateData(Request $request)
+    {
+        $validated = $request->validate([
+            'nombrecompleto' => ['required', 'max:150'],
+            'sexo' => ['required', 'max:1'],
+            'foto' => ['required', 'image'],
+            'perfil' => ['required', 'file', 'mimes:pdf'],
+
+        ]);
+        return $validated;
     }
 }
