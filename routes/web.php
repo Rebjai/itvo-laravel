@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\CandidatoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CasillaController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\VotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('casilla/pdf', [CasillaController::class,'generatepdf']);
 Route::resource('casilla', CasillaController::class);
 Route::resource('rol', RolController::class);
 Route::resource('funcionario', FuncionarioController::class);
