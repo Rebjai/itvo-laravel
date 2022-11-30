@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CandidatoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CasillaController;
@@ -23,12 +24,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('casilla/pdf', [CasillaController::class,'generatepdf']);
+Route::get('casilla/pdf', [CasillaController::class, 'generatepdf']);
 Route::resource('casilla', CasillaController::class);
 Route::resource('rol', RolController::class);
 Route::resource('funcionario', FuncionarioController::class);
 Route::resource('candidato', CandidatoController::class);
 Route::resource('voto', VotoController::class);
-Route::get('preview', [PDFController::class,'preview']);
-Route::get('download', [PDFController::class,'download'])->name('download');
+Route::get('preview', [PDFController::class, 'preview']);
+Route::get('download', [PDFController::class, 'download'])->name('download');
 
+
+
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login/facebook', [LoginController::class, 'redirectToFacebookProvider']);
+Route::get('/login/facebook/callback', [LoginController::class, 'handleProviderFacebookCallback']);
